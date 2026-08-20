@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Rep Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<style>
+:root {
+  --ground: #f4eeee; --paper: #ffffff; --ink: #1D090B; --text: #211c1c; --muted: #6f6a6a;
+  --red: #E11B14; --red-dark: #C00802; --line: #ecdcdd; --tint: #FBECED; --green: #157f3c;
+  --gold: #f5c518; --silver: #cfd4dc; --bronze: #cd7f32; --hair: #f1e6e6;
+  --shadow: 0 1px 2px rgba(29,9,11,.05), 0 8px 24px rgba(29,9,11,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #17110f; --paper: #221a17; --ink: #f6efec; --text: #ece3df; --muted: #a2938d;
+    --red: #ff6a5f; --red-dark: #ff8a80; --line: #3a2b28; --tint: #331916; --green: #4ade80;
+    --gold: #f5c518; --silver: #cbd2dc; --bronze: #d98a4a; --hair: #2e211e;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 30px rgba(0,0,0,.35);
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--ground); color: var(--text); -webkit-font-smoothing: antialiased;
+  font-size: 15px; line-height: 1.4; padding: 0 0 44px; }
+.wrap { max-width: 460px; margin: 0 auto; padding: 0 14px; }
+.brand { background: linear-gradient(135deg, #1D090B 0%, #3a0f12 68%, #5a1216 100%);
+  color: #fff; padding: 18px 18px 20px; }
+.brand-inner { max-width: 460px; margin: 0 auto; display: flex; align-items: center; gap: 12px; }
+.mark { width: 38px; height: 38px; border-radius: 10px; background: rgba(255,255,255,.1);
+  display: grid; place-items: center; font-size: 20px; flex: none;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.14); }
+.brand h1 { font-size: 17px; font-weight: 800; letter-spacing: .2px; }
+.brand .m { font-size: 12.5px; opacity: .75; font-weight: 500; margin-top: 1px; }
+.brand .tot { margin-left: auto; text-align: right; }
+.brand .tot b { font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; display: block; }
+.brand .tot span { font-size: 11px; opacity: .7; }
+.find { margin-top: 16px; background: var(--paper); border: 1px solid var(--line);
+  border-radius: 14px; padding: 13px 14px; box-shadow: var(--shadow); }
+.find label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--muted); display: block; margin-bottom: 7px; }
+.find select { width: 100%; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px;
+  font-size: 15px; font-family: inherit; background: var(--ground); color: var(--text);
+  font-weight: 600; -webkit-appearance: none; appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23999' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center; }
+.me { margin-top: 14px; background: var(--paper); border: 1px solid var(--line);
+  border-radius: 16px; padding: 18px; box-shadow: var(--shadow); border-left: 4px solid var(--red); }
+.me-top { display: flex; align-items: center; justify-content: space-between; }
+.me-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .7px; color: var(--muted); }
+.me-rank { font-size: 12.5px; font-weight: 800; color: #fff; background: var(--red); padding: 4px 11px; border-radius: 999px; }
+.me-num { font-size: 40px; font-weight: 900; color: var(--ink); margin-top: 10px;
+  font-variant-numeric: tabular-nums; letter-spacing: -1px; line-height: 1; }
+.me-sub { font-size: 13px; color: var(--muted); margin-top: 5px; }
+.chase { margin-top: 14px; padding-top: 13px; border-top: 1px solid var(--hair); font-size: 14px; line-height: 1.6; }
+.chase b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.chase .up { color: var(--green); font-weight: 800; }
+.board { margin-top: 14px; background: var(--paper); border: 1px solid var(--line);
+  border-radius: 16px; padding: 6px 14px; box-shadow: var(--shadow); }
+.board h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  color: var(--muted); padding: 12px 2px 8px; }
+.row { display: grid; grid-template-columns: 30px 1fr auto; gap: 11px; align-items: center;
+  padding: 11px 4px; border-top: 1px solid var(--hair); }
+.row:first-of-type { border-top: 0; }
+.rk { width: 27px; height: 27px; border-radius: 50%; display: grid; place-items: center;
+  font-size: 12px; font-weight: 800; background: var(--ground); color: var(--muted);
+  font-variant-numeric: tabular-nums; flex: none; }
+.row.top1 .rk { background: var(--gold); color: #3a2a00; }
+.row.top2 .rk { background: var(--silver); color: #232a33; }
+.row.top3 .rk { background: var(--bronze); color: #2a1500; }
+.nm { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.dl { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.amt { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; font-size: 15px; }
+.row.me-row { background: var(--tint); border-radius: 11px; border-top-color: transparent;
+  box-shadow: inset 0 0 0 1.5px var(--red); margin: 3px 0; padding-left: 8px; padding-right: 8px; }
+.row.me-row + .row { border-top-color: transparent; }
+.row.me-row .nm::after { content: " \00b7 you"; color: var(--red-dark); font-weight: 800; font-size: 12px; }
+.state { padding: 26px 4px; text-align: center; color: var(--muted); font-size: 14px; }
+.foot { text-align: center; color: var(--muted); font-size: 11.5px; margin-top: 16px; line-height: 1.6; }
+.foot .live { display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); margin-right: 5px; vertical-align: middle; }
+</style>
+</head>
+<body>
+<header class="brand">
+  <div class="brand-inner">
+    <div class="mark">&#127942;</div>
+    <div><h1>Rep Board</h1><div class="m" id="month">Loading&hellip;</div></div>
+    <div class="tot"><b id="tot-gross">&mdash;</b><span id="tot-deals"></span></div>
+  </div>
+</header>
+<div class="wrap">
+  <div class="find" id="find" hidden>
+    <label for="pick">Find yourself</label>
+    <select id="pick"><option value="">Pick your name&hellip;</option></select>
+  </div>
+  <section class="me" id="me" hidden>
+    <div class="me-top"><span class="me-label">Your month so far</span><span class="me-rank" id="me-rank">&mdash;</span></div>
+    <div class="me-num" id="me-num">&mdash;</div>
+    <div class="me-sub" id="me-sub"></div>
+    <div class="chase" id="chase"></div>
+  </section>
+  <section class="board">
+    <h2>The whole team</h2>
+    <div id="rows"><div class="state" id="state">Loading the board&hellip;</div></div>
+  </section>
+  <p class="foot" id="foot"></p>
+</div>
+<script>
+const DRIVE_URL = "https://drive.usercontent.google.com/download?id=1d44u91cndaFeKXdLTpPoQZaAP68YH4z8&export=download";
+let BOARD = null, ME = null;
+const $ = (id) => document.getElementById(id);
+const money = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
+const esc = (s) => (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function getStored(){ try { return localStorage.getItem("repName"); } catch { return null; } }
+function setStored(v){ try { localStorage.setItem("repName", v); } catch {} }
+function fmtWhen(iso){ try { const d=new Date(iso);
+  return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" at "+d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+} catch { return iso||""; } }
+function fillPicker(){
+  const sel=$("pick"); sel.innerHTML='<option value="">Pick your name&hellip;</option>';
+  BOARD.board.map(b=>b.rep).sort().forEach(n=>{ const o=document.createElement("option");
+    o.value=n; o.textContent=n; if(n===ME) o.selected=true; sel.appendChild(o); });
+}
+function render(){
+  $("month").textContent=BOARD.month||""; $("tot-gross").textContent=money(BOARD.gross_total);
+  $("tot-deals").textContent=BOARD.deals_total+" deals"; $("find").hidden=false;
+  $("foot").innerHTML='<span class="live"></span>Updated '+fmtWhen(BOARD.updated)+". Refreshes each night.";
+  const rows=$("rows"); rows.innerHTML="";
+  BOARD.board.forEach(b=>{ const div=document.createElement("div");
+    div.className="row"+(b.rank<=3?" top"+b.rank:"")+(ME&&b.rep===ME?" me-row":"");
+    div.innerHTML='<div class="rk">'+b.rank+'</div><div><div class="nm">'+esc(b.rep)+
+      '</div><div class="dl">'+b.deals+' deal'+(b.deals===1?"":"s")+'</div></div><div class="amt">'+money(b.gross)+'</div>';
+    rows.appendChild(div); });
+  renderMe();
+}
+function renderMe(){
+  const card=$("me"); if(!ME){ card.hidden=true; return; }
+  const board=BOARD.board, i=board.findIndex(b=>b.rep===ME);
+  if(i<0){ card.hidden=true; return; }
+  const me=board[i]; card.hidden=false;
+  $("me-rank").textContent="#"+me.rank+" of "+board.length;
+  $("me-num").textContent=money(me.gross);
+  $("me-sub").textContent=me.deals+" deal"+(me.deals===1?"":"s")+" in "+BOARD.month;
+  const parts=[];
+  if(i>0){ const a=board[i-1]; parts.push("<b>"+money(a.gross-me.gross)+"</b> behind "+esc(a.rep)+" for #"+a.rank+"."); }
+  else { const s=board[1]; if(s) parts.push('You\'re <span class="up">leading the team</span>, '+money(me.gross-s.gross)+" ahead of "+esc(s.rep)+"."); }
+  if(i<board.length-1){ const bel=board[i+1]; parts.push(esc(bel.rep)+" is <b>"+money(me.gross-bel.gross)+"</b> back of you."); }
+  $("chase").innerHTML=parts.join("<br>");
+}
+$("pick").addEventListener("change", e=>{ ME=e.target.value||null; if(ME) setStored(ME); render(); });
+(async function(){
+  ME=getStored();
+  try {
+    const r=await fetch(DRIVE_URL+"&t="+Date.now(), {cache:"no-store"});
+    if(!r.ok) throw new Error("HTTP "+r.status);
+    BOARD=JSON.parse(await r.text()); fillPicker(); render();
+  } catch(e){
+    $("month").textContent="";
+    $("state").textContent="Couldn't load the board right now. Check your internet and refresh.";
+  }
+})();
+</script>
+</body>
+</html>
