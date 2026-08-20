@@ -111,7 +111,7 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
   <p class="foot" id="foot"></p>
 </div>
 <script>
-const DRIVE_URL = "https://drive.usercontent.google.com/download?id=1d44u91cndaFeKXdLTpPoQZaAP68YH4z8&export=download";
+const DATA_URL = "board.json";
 let BOARD = null, ME = null;
 const $ = (id) => document.getElementById(id);
 const money = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
@@ -156,7 +156,7 @@ $("pick").addEventListener("change", e=>{ ME=e.target.value||null; if(ME) setSto
 (async function(){
   ME=getStored();
   try {
-    const r=await fetch(DRIVE_URL+"&t="+Date.now(), {cache:"no-store"});
+    const r=await fetch(DATA_URL+"?t="+Date.now(), {cache:"no-store"});
     if(!r.ok) throw new Error("HTTP "+r.status);
     BOARD=JSON.parse(await r.text()); fillPicker(); render();
   } catch(e){
