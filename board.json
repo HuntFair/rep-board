@@ -1,184 +1,165 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T10:29:02-07:00",
- "gross_total": 1606218,
- "deals_total": 85,
+ "updated": "2026-08-20T12:40:31-07:00",
+ "gross_total": 1548780,
+ "deals_total": 80,
+ "counts": {
+  "retail": 13,
+  "d2d": 4
+ },
  "board": [
   {
    "rep": "Connor Hamby",
    "gross": 217546,
    "deals": 12,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 1,
-   "rank_change": 0,
    "gap_to_next": 0
   },
   {
    "rep": "Chris Diamond",
    "gross": 205007,
    "deals": 10,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 2,
-   "rank_change": 0,
    "gap_to_next": 12539
   },
   {
    "rep": "Stephen Chaidez",
    "gross": 175670,
    "deals": 7,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 3,
-   "rank_change": 0,
    "gap_to_next": 29337
   },
   {
    "rep": "Richard Hadsall",
    "gross": 174049,
    "deals": 9,
+   "type": "retail",
+   "region": "Tucson",
    "rank": 4,
-   "rank_change": 0,
    "gap_to_next": 1621
   },
   {
    "rep": "Christian Noren",
    "gross": 131218,
    "deals": 8,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 5,
-   "rank_change": 0,
    "gap_to_next": 42831
+  },
+  {
+   "rep": "Oliver Johnson",
+   "gross": 95714,
+   "deals": 3,
+   "type": "retail",
+   "region": "Phoenix",
+   "rank": 6,
+   "gap_to_next": 35504
   },
   {
    "rep": "Brandon Cook",
    "gross": 88731,
    "deals": 4,
-   "rank": 6,
-   "rank_change": 0,
-   "gap_to_next": 42487
-  },
-  {
-   "rep": "Oliver Johnson",
-   "gross": 70851,
-   "deals": 2,
+   "type": "d2d",
+   "region": "",
    "rank": 7,
-   "rank_change": 0,
-   "gap_to_next": 17880
+   "gap_to_next": 6983
   },
   {
    "rep": "Cole Ludewig",
    "gross": 69576,
    "deals": 5,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 8,
-   "rank_change": 0,
-   "gap_to_next": 1275
+   "gap_to_next": 19155
   },
   {
    "rep": "James DeCoursey",
    "gross": 68563,
    "deals": 3,
+   "type": "d2d",
+   "region": "",
    "rank": 9,
-   "rank_change": 0,
    "gap_to_next": 1013
   },
   {
    "rep": "Jonathan Marino",
    "gross": 54924,
    "deals": 4,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 10,
-   "rank_change": 0,
    "gap_to_next": 13639
   },
   {
    "rep": "James Chernek",
    "gross": 51294,
    "deals": 2,
+   "type": "d2d",
+   "region": "",
    "rank": 11,
-   "rank_change": 0,
    "gap_to_next": 3630
   },
   {
    "rep": "Tanner Broadbent",
    "gross": 45766,
    "deals": 2,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 12,
-   "rank_change": 0,
    "gap_to_next": 5528
   },
   {
    "rep": "Claude Springer",
    "gross": 43700,
    "deals": 4,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 13,
-   "rank_change": 0,
    "gap_to_next": 2066
   },
   {
    "rep": "London Smith",
    "gross": 42245,
    "deals": 2,
+   "type": "retail",
+   "region": "Northern AZ",
    "rank": 14,
-   "rank_change": 0,
    "gap_to_next": 1455
   },
   {
    "rep": "Justin Parker",
    "gross": 41185,
    "deals": 2,
+   "type": "retail",
+   "region": "Phoenix",
    "rank": 15,
-   "rank_change": 0,
    "gap_to_next": 1060
   },
   {
    "rep": "Kory Dumone",
    "gross": 40192,
    "deals": 2,
+   "type": "d2d",
+   "region": "",
    "rank": 16,
-   "rank_change": 0,
    "gap_to_next": 993
-  },
-  {
-   "rep": "Josh Jewitt",
-   "gross": 38467,
-   "deals": 2,
-   "rank": 17,
-   "rank_change": 0,
-   "gap_to_next": 1725
-  },
-  {
-   "rep": "Chandler Duffy",
-   "gross": 18406,
-   "deals": 1,
-   "rank": 18,
-   "rank_change": 0,
-   "gap_to_next": 20061
-  },
-  {
-   "rep": "Bradley Crohurst",
-   "gross": 10427,
-   "deals": 1,
-   "rank": 19,
-   "rank_change": 0,
-   "gap_to_next": 7979
-  },
-  {
-   "rep": "Irving Lopez",
-   "gross": 9900,
-   "deals": 1,
-   "rank": 20,
-   "rank_change": 0,
-   "gap_to_next": 527
-  },
-  {
-   "rep": "Yousef Ayad",
-   "gross": 5101,
-   "deals": 1,
-   "rank": 21,
-   "rank_change": 0,
-   "gap_to_next": 4799
   },
   {
    "rep": "Troy Emerson",
    "gross": 3400,
    "deals": 1,
-   "rank": 22,
-   "rank_change": 0,
-   "gap_to_next": 1701
+   "type": "retail",
+   "region": "Phoenix",
+   "rank": 17,
+   "gap_to_next": 36792
   }
  ]
 }

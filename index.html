@@ -39,7 +39,17 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
 .brand .tot { margin-left: auto; text-align: right; }
 .brand .tot b { font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; display: block; }
 .brand .tot span { font-size: 11px; opacity: .7; }
-.find { margin-top: 16px; background: var(--paper); border: 1px solid var(--line);
+
+/* segmented filter */
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 14px;
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 4px;
+  box-shadow: var(--shadow); }
+.seg button { border: 0; background: none; padding: 9px 6px; font-family: inherit; font-size: 13px;
+  font-weight: 700; color: var(--muted); border-radius: 9px; cursor: pointer; }
+.seg button.on { background: var(--red); color: #fff; }
+.seg button:not(.on):hover { background: var(--tint); color: var(--red-dark); }
+
+.find { margin-top: 12px; background: var(--paper); border: 1px solid var(--line);
   border-radius: 14px; padding: 13px 14px; box-shadow: var(--shadow); }
 .find label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
   color: var(--muted); display: block; margin-bottom: 7px; }
@@ -94,74 +104,114 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
   </div>
 </header>
 <div class="wrap">
+  <div class="seg" id="seg" hidden>
+    <button data-f="all" class="on">Everyone</button>
+    <button data-f="retail">Retail</button>
+    <button data-f="d2d">D2D</button>
+  </div>
   <div class="find" id="find" hidden>
     <label for="pick">Find yourself</label>
     <select id="pick"><option value="">Pick your name&hellip;</option></select>
   </div>
   <section class="me" id="me" hidden>
-    <div class="me-top"><span class="me-label">Your month so far</span><span class="me-rank" id="me-rank">&mdash;</span></div>
+    <div class="me-top"><span class="me-label" id="me-label">Your month so far</span><span class="me-rank" id="me-rank">&mdash;</span></div>
     <div class="me-num" id="me-num">&mdash;</div>
     <div class="me-sub" id="me-sub"></div>
     <div class="chase" id="chase"></div>
   </section>
   <section class="board">
-    <h2>The whole team</h2>
+    <h2 id="board-h">The whole team</h2>
     <div id="rows"><div class="state" id="state">Loading the board&hellip;</div></div>
   </section>
   <p class="foot" id="foot"></p>
 </div>
 <script>
 const DATA_URL = "board.json";
-let BOARD = null, ME = null;
+const LABELS = { all: "Everyone", retail: "Retail", d2d: "D2D" };
+let BOARD = null, ME = null, FILTER = "all";
 const $ = (id) => document.getElementById(id);
 const money = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
 const esc = (s) => (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-function getStored(){ try { return localStorage.getItem("repName"); } catch { return null; } }
-function setStored(v){ try { localStorage.setItem("repName", v); } catch {} }
+function lsGet(k){ try { return localStorage.getItem(k); } catch { return null; } }
+function lsSet(k,v){ try { localStorage.setItem(k,v); } catch {} }
 function fmtWhen(iso){ try { const d=new Date(iso);
   return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" at "+d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
 } catch { return iso||""; } }
+
+function visible(){ return FILTER === "all" ? BOARD.board : BOARD.board.filter(b => b.type === FILTER); }
+
+function render(){
+  const vis = visible();
+  const gross = vis.reduce((s,b)=>s+(b.gross||0),0), deals = vis.reduce((s,b)=>s+(b.deals||0),0);
+  $("month").textContent = BOARD.month || "";
+  $("tot-gross").textContent = money(gross);
+  $("tot-deals").textContent = deals + " deal" + (deals===1?"":"s");
+  $("board-h").textContent = FILTER === "all" ? "The whole team" : LABELS[FILTER] + " reps";
+  $("foot").innerHTML = '<span class="live"></span>Updated ' + fmtWhen(BOARD.updated) + ". Refreshes each night.";
+  document.querySelectorAll("#seg button").forEach(b => b.classList.toggle("on", b.dataset.f === FILTER));
+
+  const rows = $("rows"); rows.innerHTML = "";
+  if (!vis.length) { rows.innerHTML = '<div class="state">Nobody here yet this month.</div>'; }
+  vis.forEach((b,i) => {
+    const rank = i + 1;
+    const div = document.createElement("div");
+    div.className = "row" + (rank <= 3 ? " top"+rank : "") + (ME && b.rep === ME ? " me-row" : "");
+    div.innerHTML =
+      '<div class="rk">'+rank+'</div><div><div class="nm">'+esc(b.rep)+
+      '</div><div class="dl">'+b.deals+' deal'+(b.deals===1?"":"s")+(b.region?' · '+esc(b.region):'')+'</div></div>'+
+      '<div class="amt">'+money(b.gross)+'</div>';
+    rows.appendChild(div);
+  });
+  renderMe(vis);
+}
+
+function renderMe(vis){
+  const card = $("me");
+  if (!ME) { card.hidden = true; return; }
+  const i = vis.findIndex(b => b.rep === ME);
+  if (i < 0) { card.hidden = true; return; }   // you're not in this filter (e.g. viewing the other team)
+  const me = vis[i];
+  card.hidden = false;
+  $("me-label").textContent = "Your month" + (FILTER==="all" ? "" : " · " + LABELS[FILTER]);
+  $("me-rank").textContent = "#" + (i+1) + " of " + vis.length;
+  $("me-num").textContent = money(me.gross);
+  $("me-sub").textContent = me.deals + " deal" + (me.deals===1?"":"s") + " in " + BOARD.month;
+  const parts = [];
+  if (i > 0) { const a = vis[i-1]; parts.push("<b>"+money(a.gross-me.gross)+"</b> behind "+esc(a.rep)+" for #"+i+"."); }
+  else { const s = vis[1]; if (s) parts.push('You\'re <span class="up">leading'+(FILTER==="all"?" the team":" "+LABELS[FILTER])+'</span>, '+money(me.gross-s.gross)+" ahead of "+esc(s.rep)+"."); }
+  if (i < vis.length-1) { const bel = vis[i+1]; parts.push(esc(bel.rep)+" is <b>"+money(me.gross-bel.gross)+"</b> back of you."); }
+  $("chase").innerHTML = parts.join("<br>");
+}
+
 function fillPicker(){
-  const sel=$("pick"); sel.innerHTML='<option value="">Pick your name&hellip;</option>';
+  const sel = $("pick"); sel.innerHTML = '<option value="">Pick your name&hellip;</option>';
   BOARD.board.map(b=>b.rep).sort().forEach(n=>{ const o=document.createElement("option");
     o.value=n; o.textContent=n; if(n===ME) o.selected=true; sel.appendChild(o); });
 }
-function render(){
-  $("month").textContent=BOARD.month||""; $("tot-gross").textContent=money(BOARD.gross_total);
-  $("tot-deals").textContent=BOARD.deals_total+" deals"; $("find").hidden=false;
-  $("foot").innerHTML='<span class="live"></span>Updated '+fmtWhen(BOARD.updated)+". Refreshes each night.";
-  const rows=$("rows"); rows.innerHTML="";
-  BOARD.board.forEach(b=>{ const div=document.createElement("div");
-    div.className="row"+(b.rank<=3?" top"+b.rank:"")+(ME&&b.rep===ME?" me-row":"");
-    div.innerHTML='<div class="rk">'+b.rank+'</div><div><div class="nm">'+esc(b.rep)+
-      '</div><div class="dl">'+b.deals+' deal'+(b.deals===1?"":"s")+'</div></div><div class="amt">'+money(b.gross)+'</div>';
-    rows.appendChild(div); });
-  renderMe();
-}
-function renderMe(){
-  const card=$("me"); if(!ME){ card.hidden=true; return; }
-  const board=BOARD.board, i=board.findIndex(b=>b.rep===ME);
-  if(i<0){ card.hidden=true; return; }
-  const me=board[i]; card.hidden=false;
-  $("me-rank").textContent="#"+me.rank+" of "+board.length;
-  $("me-num").textContent=money(me.gross);
-  $("me-sub").textContent=me.deals+" deal"+(me.deals===1?"":"s")+" in "+BOARD.month;
-  const parts=[];
-  if(i>0){ const a=board[i-1]; parts.push("<b>"+money(a.gross-me.gross)+"</b> behind "+esc(a.rep)+" for #"+a.rank+"."); }
-  else { const s=board[1]; if(s) parts.push('You\'re <span class="up">leading the team</span>, '+money(me.gross-s.gross)+" ahead of "+esc(s.rep)+"."); }
-  if(i<board.length-1){ const bel=board[i+1]; parts.push(esc(bel.rep)+" is <b>"+money(me.gross-bel.gross)+"</b> back of you."); }
-  $("chase").innerHTML=parts.join("<br>");
-}
-$("pick").addEventListener("change", e=>{ ME=e.target.value||null; if(ME) setStored(ME); render(); });
+
+document.querySelectorAll("#seg button").forEach(btn => btn.addEventListener("click", () => {
+  FILTER = btn.dataset.f; lsSet("filter", FILTER); render();
+}));
+$("pick").addEventListener("change", e => {
+  ME = e.target.value || null;
+  if (ME) { lsSet("repName", ME);
+    const mine = BOARD.board.find(b => b.rep === ME);
+    if (mine && mine.type) { FILTER = mine.type; lsSet("filter", FILTER); }   // jump to your team
+  }
+  render();
+});
+
 (async function(){
-  ME=getStored();
+  ME = lsGet("repName"); FILTER = lsGet("filter") || "all";
   try {
-    const r=await fetch(DATA_URL+"?t="+Date.now(), {cache:"no-store"});
-    if(!r.ok) throw new Error("HTTP "+r.status);
-    BOARD=JSON.parse(await r.text()); fillPicker(); render();
+    const r = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" });
+    if (!r.ok) throw new Error("HTTP " + r.status);
+    BOARD = JSON.parse(await r.text());
+    $("seg").hidden = false; $("find").hidden = false;
+    fillPicker(); render();
   } catch(e){
-    $("month").textContent="";
-    $("state").textContent="Couldn't load the board right now. Check your internet and refresh.";
+    $("month").textContent = "";
+    $("state").textContent = "Couldn't load the board right now. Check your internet and refresh.";
   }
 })();
 </script>
