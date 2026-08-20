@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T13:11:03-07:00",
+ "updated": "2026-08-20T13:49:09-07:00",
  "gross_total": 1548780,
  "deals_total": 80,
  "counts": {
@@ -14,6 +14,7 @@
    "deals": 12,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 1,
    "gap_to_next": 0
   },
@@ -23,6 +24,7 @@
    "deals": 10,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 2,
    "gap_to_next": 12539
   },
@@ -32,6 +34,7 @@
    "deals": 7,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 3,
    "gap_to_next": 29337
   },
@@ -41,6 +44,7 @@
    "deals": 9,
    "type": "retail",
    "region": "Tucson",
+   "today": 0,
    "rank": 4,
    "gap_to_next": 1621
   },
@@ -50,6 +54,7 @@
    "deals": 8,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 5,
    "gap_to_next": 42831
   },
@@ -59,6 +64,7 @@
    "deals": 3,
    "type": "retail",
    "region": "Phoenix",
+   "today": 1,
    "rank": 6,
    "gap_to_next": 35504
   },
@@ -68,6 +74,7 @@
    "deals": 4,
    "type": "d2d",
    "region": "",
+   "today": 0,
    "rank": 7,
    "gap_to_next": 6983
   },
@@ -77,6 +84,7 @@
    "deals": 5,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 8,
    "gap_to_next": 19155
   },
@@ -86,6 +94,7 @@
    "deals": 3,
    "type": "d2d",
    "region": "",
+   "today": 0,
    "rank": 9,
    "gap_to_next": 1013
   },
@@ -95,6 +104,7 @@
    "deals": 4,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 10,
    "gap_to_next": 13639
   },
@@ -104,6 +114,7 @@
    "deals": 2,
    "type": "d2d",
    "region": "",
+   "today": 0,
    "rank": 11,
    "gap_to_next": 3630
   },
@@ -113,6 +124,7 @@
    "deals": 2,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 12,
    "gap_to_next": 5528
   },
@@ -122,6 +134,7 @@
    "deals": 4,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 13,
    "gap_to_next": 2066
   },
@@ -131,6 +144,7 @@
    "deals": 2,
    "type": "retail",
    "region": "Northern AZ",
+   "today": 0,
    "rank": 14,
    "gap_to_next": 1455
   },
@@ -140,6 +154,7 @@
    "deals": 2,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 15,
    "gap_to_next": 1060
   },
@@ -149,6 +164,7 @@
    "deals": 2,
    "type": "d2d",
    "region": "",
+   "today": 0,
    "rank": 16,
    "gap_to_next": 993
   },
@@ -158,6 +174,7 @@
    "deals": 1,
    "type": "retail",
    "region": "Phoenix",
+   "today": 0,
    "rank": 17,
    "gap_to_next": 36792
   }

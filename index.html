@@ -87,6 +87,7 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
 .row.top3 .rk { background: var(--bronze); color: #2a1500; }
 .nm { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dl { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.flair { color: var(--red-dark); font-weight: 800; }
 .amt { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; font-size: 15px; }
 .amt small { font-weight: 600; font-size: 11px; color: var(--muted); margin-left: 2px; }
 .row.me-row { background: var(--tint); border-radius: 11px; border-top-color: transparent;
@@ -140,6 +141,7 @@ let BOARD = null, ME = null, FILTER = "all", METRIC = "sales";
 const $ = (id) => document.getElementById(id);
 const money = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
 const esc = (s) => (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const flair = (n) => !n ? "" : ' <span class="flair">' + (n===1?"single":n===2?"2-pack \u270C\uFE0F":n===3?"hat trick \uD83C\uDFA9":n+" today \uD83D\uDD25") + '</span>';
 const isCas = () => METRIC === "cas";
 const val = (b) => isCas() ? (b.count||0) : (b.gross||0);
 const bigOf = (b) => isCas() ? (val(b) + '<small>CA' + (val(b)===1?"":"s") + '</small>') : money(val(b));
@@ -173,12 +175,12 @@ function render(){
   if (!vis.length) { rows.innerHTML = '<div class="state">Nobody here yet this month.</div>'; }
   vis.forEach((b,i) => {
     const rank = i + 1;
-    const detail = isCas() ? (b.region || (b.type==="d2d"?"D2D":"")) : (b.deals + ' deal'+(b.deals===1?"":"s") + (b.region?' · '+esc(b.region):''));
+    const detailHtml = isCas() ? esc(b.region || (b.type==="d2d"?"D2D":"")) : (esc(b.deals + ' deal'+(b.deals===1?"":"s") + (b.region?' · '+b.region:'')) + flair(b.today));
     const div = document.createElement("div");
     div.className = "row" + (rank <= 3 ? " top"+rank : "") + (ME && b.rep === ME ? " me-row" : "");
     div.innerHTML =
       '<div class="rk">'+rank+'</div><div><div class="nm">'+esc(b.rep)+
-      '</div><div class="dl">'+esc(detail)+'</div></div><div class="amt">'+bigOf(b)+'</div>';
+      '</div><div class="dl">'+detailHtml+'</div></div><div class="amt">'+bigOf(b)+'</div>';
     div.addEventListener("click", () => { ME = b.rep; lsSet("repName", ME); render(); $("me").scrollIntoView({ behavior: "smooth", block: "center" }); });
     rows.appendChild(div);
   });
