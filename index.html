@@ -40,13 +40,14 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
 .brand .tot b { font-size: 15px; font-weight: 800; font-variant-numeric: tabular-nums; display: block; }
 .brand .tot span { font-size: 11px; opacity: .7; }
 
-/* segmented filter */
 .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-top: 14px;
   background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 4px;
   box-shadow: var(--shadow); }
+.seg.m2 { grid-template-columns: repeat(2, 1fr); }
 .seg button { border: 0; background: none; padding: 9px 6px; font-family: inherit; font-size: 13px;
   font-weight: 700; color: var(--muted); border-radius: 9px; cursor: pointer; }
-.seg button.on { background: var(--red); color: #fff; }
+.seg.metric button.on { background: var(--ink); color: #fff; }
+.seg.filter button.on { background: var(--red); color: #fff; }
 .seg button:not(.on):hover { background: var(--tint); color: var(--red-dark); }
 
 .find { margin-top: 12px; background: var(--paper); border: 1px solid var(--line);
@@ -85,6 +86,7 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
 .nm { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .dl { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
 .amt { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; font-size: 15px; }
+.amt small { font-weight: 600; font-size: 11px; color: var(--muted); margin-left: 2px; }
 .row.me-row { background: var(--tint); border-radius: 11px; border-top-color: transparent;
   box-shadow: inset 0 0 0 1.5px var(--red); margin: 3px 0; padding-left: 8px; padding-right: 8px; }
 .row.me-row + .row { border-top-color: transparent; }
@@ -100,11 +102,15 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
   <div class="brand-inner">
     <div class="mark">&#127942;</div>
     <div><h1>Rep Board</h1><div class="m" id="month">Loading&hellip;</div></div>
-    <div class="tot"><b id="tot-gross">&mdash;</b><span id="tot-deals"></span></div>
+    <div class="tot"><b id="tot-big">&mdash;</b><span id="tot-sub"></span></div>
   </div>
 </header>
 <div class="wrap">
-  <div class="seg" id="seg" hidden>
+  <div class="seg m2 metric" id="metric" hidden>
+    <button data-m="sales" class="on">Sales $</button>
+    <button data-m="cas">CAs signed</button>
+  </div>
+  <div class="seg filter" id="seg" hidden>
     <button data-f="all" class="on">Everyone</button>
     <button data-f="retail">Retail</button>
     <button data-f="d2d">D2D</button>
@@ -128,38 +134,49 @@ body { font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-s
 <script>
 const DATA_URL = "board.json";
 const LABELS = { all: "Everyone", retail: "Retail", d2d: "D2D" };
-let BOARD = null, ME = null, FILTER = "all";
+let BOARD = null, ME = null, FILTER = "all", METRIC = "sales";
 const $ = (id) => document.getElementById(id);
 const money = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
 const esc = (s) => (s||"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const isCas = () => METRIC === "cas";
+const val = (b) => isCas() ? (b.count||0) : (b.gross||0);
+const bigOf = (b) => isCas() ? (val(b) + '<small>CA' + (val(b)===1?"":"s") + '</small>') : money(val(b));
 function lsGet(k){ try { return localStorage.getItem(k); } catch { return null; } }
 function lsSet(k,v){ try { localStorage.setItem(k,v); } catch {} }
 function fmtWhen(iso){ try { const d=new Date(iso);
   return d.toLocaleDateString("en-US",{month:"short",day:"numeric"})+" at "+d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
 } catch { return iso||""; } }
 
-function visible(){ return FILTER === "all" ? BOARD.board : BOARD.board.filter(b => b.type === FILTER); }
+function source(){ return isCas() ? ((BOARD.cas && BOARD.cas.board) || []) : BOARD.board; }
+function visible(){ const s = source(); return FILTER === "all" ? s : s.filter(b => b.type === FILTER); }
 
 function render(){
   const vis = visible();
-  const gross = vis.reduce((s,b)=>s+(b.gross||0),0), deals = vis.reduce((s,b)=>s+(b.deals||0),0);
+  const totVal = vis.reduce((s,b)=>s+val(b),0);
   $("month").textContent = BOARD.month || "";
-  $("tot-gross").textContent = money(gross);
-  $("tot-deals").textContent = deals + " deal" + (deals===1?"":"s");
-  $("board-h").textContent = FILTER === "all" ? "The whole team" : LABELS[FILTER] + " reps";
-  $("foot").innerHTML = '<span class="live"></span>Updated ' + fmtWhen(BOARD.updated) + ". Refreshes each night.";
+  if (isCas()) {
+    $("tot-big").innerHTML = totVal + '<small>CA' + (totVal===1?"":"s") + '</small>';
+    $("tot-sub").textContent = (BOARD.cas ? "goal " + BOARD.cas.goal : "");
+  } else {
+    const deals = vis.reduce((s,b)=>s+(b.deals||0),0);
+    $("tot-big").textContent = money(totVal);
+    $("tot-sub").textContent = deals + " deal" + (deals===1?"":"s");
+  }
+  $("board-h").textContent = (FILTER === "all" ? "The whole team" : LABELS[FILTER] + " reps") + (isCas() ? " · CAs" : "");
+  $("foot").innerHTML = '<span class="live"></span>Updated ' + fmtWhen(BOARD.updated) + ". Updates through the day.";
   document.querySelectorAll("#seg button").forEach(b => b.classList.toggle("on", b.dataset.f === FILTER));
+  document.querySelectorAll("#metric button").forEach(b => b.classList.toggle("on", b.dataset.m === METRIC));
 
   const rows = $("rows"); rows.innerHTML = "";
   if (!vis.length) { rows.innerHTML = '<div class="state">Nobody here yet this month.</div>'; }
   vis.forEach((b,i) => {
     const rank = i + 1;
+    const detail = isCas() ? (b.region || (b.type==="d2d"?"D2D":"")) : (b.deals + ' deal'+(b.deals===1?"":"s") + (b.region?' · '+esc(b.region):''));
     const div = document.createElement("div");
     div.className = "row" + (rank <= 3 ? " top"+rank : "") + (ME && b.rep === ME ? " me-row" : "");
     div.innerHTML =
       '<div class="rk">'+rank+'</div><div><div class="nm">'+esc(b.rep)+
-      '</div><div class="dl">'+b.deals+' deal'+(b.deals===1?"":"s")+(b.region?' · '+esc(b.region):'')+'</div></div>'+
-      '<div class="amt">'+money(b.gross)+'</div>';
+      '</div><div class="dl">'+esc(detail)+'</div></div><div class="amt">'+bigOf(b)+'</div>';
     rows.appendChild(div);
   });
   renderMe(vis);
@@ -169,45 +186,53 @@ function renderMe(vis){
   const card = $("me");
   if (!ME) { card.hidden = true; return; }
   const i = vis.findIndex(b => b.rep === ME);
-  if (i < 0) { card.hidden = true; return; }   // you're not in this filter (e.g. viewing the other team)
+  if (i < 0) { card.hidden = true; return; }
   const me = vis[i];
   card.hidden = false;
-  $("me-label").textContent = "Your month" + (FILTER==="all" ? "" : " · " + LABELS[FILTER]);
+  $("me-label").textContent = (isCas() ? "Your CAs" : "Your month") + (FILTER==="all" ? "" : " · " + LABELS[FILTER]);
   $("me-rank").textContent = "#" + (i+1) + " of " + vis.length;
-  $("me-num").textContent = money(me.gross);
-  $("me-sub").textContent = me.deals + " deal" + (me.deals===1?"":"s") + " in " + BOARD.month;
+  $("me-num").innerHTML = bigOf(me);
+  $("me-sub").textContent = isCas()
+    ? (val(me) + " signed in " + BOARD.month)
+    : (me.deals + " deal" + (me.deals===1?"":"s") + " in " + BOARD.month);
+  const unit = (n) => isCas() ? (n + " CA" + (n===1?"":"s")) : money(n);
   const parts = [];
-  if (i > 0) { const a = vis[i-1]; parts.push("<b>"+money(a.gross-me.gross)+"</b> behind "+esc(a.rep)+" for #"+i+"."); }
-  else { const s = vis[1]; if (s) parts.push('You\'re <span class="up">leading'+(FILTER==="all"?" the team":" "+LABELS[FILTER])+'</span>, '+money(me.gross-s.gross)+" ahead of "+esc(s.rep)+"."); }
-  if (i < vis.length-1) { const bel = vis[i+1]; parts.push(esc(bel.rep)+" is <b>"+money(me.gross-bel.gross)+"</b> back of you."); }
+  if (i > 0) { const a = vis[i-1]; parts.push("<b>"+unit(val(a)-val(me))+"</b> behind "+esc(a.rep)+" for #"+i+"."); }
+  else { const s = vis[1]; if (s) parts.push('You\'re <span class="up">leading'+(FILTER==="all"?" the team":" "+LABELS[FILTER])+'</span>, '+unit(val(me)-val(s))+" ahead of "+esc(s.rep)+"."); }
+  if (i < vis.length-1) { const bel = vis[i+1]; parts.push(esc(bel.rep)+" is <b>"+unit(val(me)-val(bel))+"</b> back of you."); }
   $("chase").innerHTML = parts.join("<br>");
 }
 
 function fillPicker(){
   const sel = $("pick"); sel.innerHTML = '<option value="">Pick your name&hellip;</option>';
-  BOARD.board.map(b=>b.rep).sort().forEach(n=>{ const o=document.createElement("option");
+  const names = new Set([...BOARD.board.map(b=>b.rep), ...((BOARD.cas&&BOARD.cas.board)||[]).map(b=>b.rep)]);
+  [...names].sort().forEach(n=>{ const o=document.createElement("option");
     o.value=n; o.textContent=n; if(n===ME) o.selected=true; sel.appendChild(o); });
 }
 
+document.querySelectorAll("#metric button").forEach(btn => btn.addEventListener("click", () => {
+  METRIC = btn.dataset.m; lsSet("metric", METRIC); render();
+}));
 document.querySelectorAll("#seg button").forEach(btn => btn.addEventListener("click", () => {
   FILTER = btn.dataset.f; lsSet("filter", FILTER); render();
 }));
 $("pick").addEventListener("change", e => {
   ME = e.target.value || null;
   if (ME) { lsSet("repName", ME);
-    const mine = BOARD.board.find(b => b.rep === ME);
-    if (mine && mine.type) { FILTER = mine.type; lsSet("filter", FILTER); }   // jump to your team
+    const mine = BOARD.board.find(b => b.rep === ME) || ((BOARD.cas&&BOARD.cas.board)||[]).find(b => b.rep === ME);
+    if (mine && mine.type) { FILTER = mine.type; lsSet("filter", FILTER); }
   }
   render();
 });
 
 (async function(){
-  ME = lsGet("repName"); FILTER = lsGet("filter") || "all";
+  ME = lsGet("repName"); FILTER = lsGet("filter") || "all"; METRIC = lsGet("metric") || "sales";
   try {
     const r = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" });
     if (!r.ok) throw new Error("HTTP " + r.status);
     BOARD = JSON.parse(await r.text());
-    $("seg").hidden = false; $("find").hidden = false;
+    if (!BOARD.cas) { document.querySelector('#metric').style.display = "none"; }  // hide CAs toggle if no CA data
+    $("metric").hidden = false; $("seg").hidden = false; $("find").hidden = false;
     fillPicker(); render();
   } catch(e){
     $("month").textContent = "";

@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T12:40:31-07:00",
+ "updated": "2026-08-20T12:59:23-07:00",
  "gross_total": 1548780,
  "deals_total": 80,
  "counts": {
@@ -161,5 +161,130 @@
    "rank": 17,
    "gap_to_next": 36792
   }
- ]
+ ],
+ "cas": {
+  "total": 64,
+  "goal": 50,
+  "board": [
+   {
+    "rep": "Nahum Sandoval",
+    "count": 11,
+    "type": "d2d",
+    "region": "",
+    "rank": 1
+   },
+   {
+    "rep": "James DeCoursey",
+    "count": 9,
+    "type": "d2d",
+    "region": "",
+    "rank": 2
+   },
+   {
+    "rep": "James Chernek",
+    "count": 6,
+    "type": "d2d",
+    "region": "",
+    "rank": 3
+   },
+   {
+    "rep": "Kory Dumone",
+    "count": 6,
+    "type": "d2d",
+    "region": "",
+    "rank": 4
+   },
+   {
+    "rep": "Stephen Chaidez",
+    "count": 5,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 5
+   },
+   {
+    "rep": "Israel Silva",
+    "count": 4,
+    "type": "d2d",
+    "region": "",
+    "rank": 6
+   },
+   {
+    "rep": "Tanner Stephens",
+    "count": 4,
+    "type": "d2d",
+    "region": "",
+    "rank": 7
+   },
+   {
+    "rep": "Brandon Cook",
+    "count": 3,
+    "type": "d2d",
+    "region": "",
+    "rank": 8
+   },
+   {
+    "rep": "Christian Noren",
+    "count": 3,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 9
+   },
+   {
+    "rep": "Claude Springer",
+    "count": 3,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 10
+   },
+   {
+    "rep": "Cole Ludewig",
+    "count": 3,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 11
+   },
+   {
+    "rep": "Connor Hamby",
+    "count": 2,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 12
+   },
+   {
+    "rep": "Chris Diamond",
+    "count": 1,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 13
+   },
+   {
+    "rep": "Justin Parker",
+    "count": 1,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 14
+   },
+   {
+    "rep": "Michael Hurff",
+    "count": 1,
+    "type": "d2d",
+    "region": "",
+    "rank": 15
+   },
+   {
+    "rep": "Richard Hadsall",
+    "count": 1,
+    "type": "retail",
+    "region": "Tucson",
+    "rank": 16
+   },
+   {
+    "rep": "Troy Emerson",
+    "count": 1,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 17
+   }
+  ]
+ }
 }
