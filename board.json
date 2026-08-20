@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T13:06:54-07:00",
+ "updated": "2026-08-20T13:11:03-07:00",
  "gross_total": 1548780,
  "deals_total": 80,
  "counts": {
@@ -163,7 +163,7 @@
   }
  ],
  "cas": {
-  "total": 64,
+  "total": 65,
   "goal": 50,
   "board": [
    {
@@ -251,39 +251,46 @@
     "rank": 12
    },
    {
-    "rep": "Chris Diamond",
+    "rep": "Brendan Robinson",
     "count": 1,
-    "type": "retail",
-    "region": "Phoenix",
+    "type": "d2d",
+    "region": "",
     "rank": 13
    },
    {
-    "rep": "Justin Parker",
+    "rep": "Chris Diamond",
     "count": 1,
     "type": "retail",
     "region": "Phoenix",
     "rank": 14
    },
    {
+    "rep": "Justin Parker",
+    "count": 1,
+    "type": "retail",
+    "region": "Phoenix",
+    "rank": 15
+   },
+   {
     "rep": "Michael Hurff",
     "count": 1,
     "type": "d2d",
     "region": "",
-    "rank": 15
+    "rank": 16
    },
    {
     "rep": "Richard Hadsall",
     "count": 1,
     "type": "retail",
     "region": "Tucson",
-    "rank": 16
+    "rank": 17
    },
    {
     "rep": "Troy Emerson",
     "count": 1,
     "type": "retail",
     "region": "Phoenix",
-    "rank": 17
+    "rank": 18
    }
   ]
  }
