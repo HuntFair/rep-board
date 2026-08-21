@@ -1,7 +1,7 @@
 {
  "month": "August 2026",
- "updated": "2026-08-21T11:10:06-07:00",
- "gross_total": 1601172,
+ "updated": "2026-08-21T12:10:13-07:00",
+ "gross_total": 1598634,
  "deals_total": 86,
  "counts": {
   "retail": 13,
@@ -160,13 +160,13 @@
   },
   {
    "rep": "Kory Dumone",
-   "gross": 40192,
+   "gross": 37654,
    "deals": 2,
    "type": "d2d",
    "region": "",
-   "today": 0,
+   "today": 1,
    "rank": 16,
-   "gap_to_next": 993
+   "gap_to_next": 3531
   },
   {
    "rep": "Troy Emerson",
@@ -176,7 +176,7 @@
    "region": "Phoenix",
    "today": 0,
    "rank": 17,
-   "gap_to_next": 36792
+   "gap_to_next": 34254
   }
  ],
  "cas": {
