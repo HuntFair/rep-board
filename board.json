@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T19:07:28-07:00",
+ "updated": "2026-08-20T20:07:34-07:00",
  "gross_total": 1553118,
  "deals_total": 83,
  "counts": {
@@ -180,7 +180,7 @@
   }
  ],
  "cas": {
-  "total": 67,
+  "total": 68,
   "goal": 50,
   "board": [
    {
@@ -219,35 +219,35 @@
     "rank": 5
    },
    {
-    "rep": "Israel Silva",
+    "rep": "Claude Springer",
     "count": 4,
-    "type": "d2d",
-    "region": "",
+    "type": "retail",
+    "region": "Phoenix",
     "rank": 6
    },
    {
-    "rep": "Tanner Stephens",
+    "rep": "Israel Silva",
     "count": 4,
     "type": "d2d",
     "region": "",
     "rank": 7
    },
    {
-    "rep": "Brandon Cook",
-    "count": 3,
+    "rep": "Tanner Stephens",
+    "count": 4,
     "type": "d2d",
     "region": "",
     "rank": 8
    },
    {
-    "rep": "Christian Noren",
+    "rep": "Brandon Cook",
     "count": 3,
-    "type": "retail",
-    "region": "Phoenix",
+    "type": "d2d",
+    "region": "",
     "rank": 9
    },
    {
-    "rep": "Claude Springer",
+    "rep": "Christian Noren",
     "count": 3,
     "type": "retail",
     "region": "Phoenix",
