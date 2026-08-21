@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-21T10:10:00-07:00",
+ "updated": "2026-08-21T11:10:06-07:00",
  "gross_total": 1601172,
  "deals_total": 86,
  "counts": {
@@ -180,7 +180,7 @@
   }
  ],
  "cas": {
-  "total": 68,
+  "total": 70,
   "goal": 50,
   "board": [
    {
@@ -192,7 +192,7 @@
    },
    {
     "rep": "James DeCoursey",
-    "count": 9,
+    "count": 10,
     "type": "d2d",
     "region": "",
     "rank": 2
@@ -233,38 +233,38 @@
     "rank": 7
    },
    {
-    "rep": "Tanner Stephens",
+    "rep": "Michael Hurff",
     "count": 4,
     "type": "d2d",
     "region": "",
     "rank": 8
    },
    {
+    "rep": "Tanner Stephens",
+    "count": 4,
+    "type": "d2d",
+    "region": "",
+    "rank": 9
+   },
+   {
     "rep": "Brandon Cook",
     "count": 3,
     "type": "d2d",
     "region": "",
-    "rank": 9
+    "rank": 10
    },
    {
     "rep": "Christian Noren",
     "count": 3,
     "type": "retail",
     "region": "Phoenix",
-    "rank": 10
+    "rank": 11
    },
    {
     "rep": "Cole Ludewig",
     "count": 3,
     "type": "retail",
     "region": "Phoenix",
-    "rank": 11
-   },
-   {
-    "rep": "Michael Hurff",
-    "count": 3,
-    "type": "d2d",
-    "region": "",
     "rank": 12
    },
    {
