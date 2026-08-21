@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T23:08:10-07:00",
+ "updated": "2026-08-21T00:08:22-07:00",
  "gross_total": 1553118,
  "deals_total": 83,
  "counts": {
@@ -14,7 +14,7 @@
    "deals": 14,
    "type": "retail",
    "region": "Phoenix",
-   "today": 2,
+   "today": 0,
    "rank": 1,
    "gap_to_next": 0
   },
@@ -74,7 +74,7 @@
    "deals": 3,
    "type": "retail",
    "region": "Phoenix",
-   "today": 1,
+   "today": 0,
    "rank": 7,
    "gap_to_next": 1869
   },
@@ -84,7 +84,7 @@
    "deals": 6,
    "type": "retail",
    "region": "Phoenix",
-   "today": 1,
+   "today": 0,
    "rank": 8,
    "gap_to_next": 8286
   },
@@ -104,7 +104,7 @@
    "deals": 3,
    "type": "d2d",
    "region": "",
-   "today": 1,
+   "today": 0,
    "rank": 10,
    "gap_to_next": 8579
   },
