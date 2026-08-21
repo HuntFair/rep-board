@@ -1,8 +1,8 @@
 {
  "month": "August 2026",
- "updated": "2026-08-20T17:07:16-07:00",
- "gross_total": 1548780,
- "deals_total": 80,
+ "updated": "2026-08-20T18:07:22-07:00",
+ "gross_total": 1553118,
+ "deals_total": 83,
  "counts": {
   "retail": 13,
   "d2d": 4
@@ -10,11 +10,11 @@
  "board": [
   {
    "rep": "Connor Hamby",
-   "gross": 217546,
-   "deals": 12,
+   "gross": 240495,
+   "deals": 14,
    "type": "retail",
    "region": "Phoenix",
-   "today": 0,
+   "today": 2,
    "rank": 1,
    "gap_to_next": 0
   },
@@ -26,17 +26,7 @@
    "region": "Phoenix",
    "today": 0,
    "rank": 2,
-   "gap_to_next": 12539
-  },
-  {
-   "rep": "Stephen Chaidez",
-   "gross": 175670,
-   "deals": 7,
-   "type": "retail",
-   "region": "Phoenix",
-   "today": 0,
-   "rank": 3,
-   "gap_to_next": 29337
+   "gap_to_next": 35488
   },
   {
    "rep": "Richard Hadsall",
@@ -45,8 +35,18 @@
    "type": "retail",
    "region": "Tucson",
    "today": 0,
+   "rank": 3,
+   "gap_to_next": 30958
+  },
+  {
+   "rep": "Stephen Chaidez",
+   "gross": 148221,
+   "deals": 6,
+   "type": "retail",
+   "region": "Phoenix",
+   "today": 0,
    "rank": 4,
-   "gap_to_next": 1621
+   "gap_to_next": 25828
   },
   {
    "rep": "Christian Noren",
@@ -56,17 +56,7 @@
    "region": "Phoenix",
    "today": 0,
    "rank": 5,
-   "gap_to_next": 42831
-  },
-  {
-   "rep": "Oliver Johnson",
-   "gross": 95714,
-   "deals": 3,
-   "type": "retail",
-   "region": "Phoenix",
-   "today": 1,
-   "rank": 6,
-   "gap_to_next": 35504
+   "gap_to_next": 17003
   },
   {
    "rep": "Brandon Cook",
@@ -75,18 +65,28 @@
    "type": "d2d",
    "region": "",
    "today": 0,
+   "rank": 6,
+   "gap_to_next": 42487
+  },
+  {
+   "rep": "Oliver Johnson",
+   "gross": 86862,
+   "deals": 3,
+   "type": "retail",
+   "region": "Phoenix",
+   "today": 1,
    "rank": 7,
-   "gap_to_next": 6983
+   "gap_to_next": 1869
   },
   {
    "rep": "Cole Ludewig",
-   "gross": 69576,
-   "deals": 5,
+   "gross": 78576,
+   "deals": 6,
    "type": "retail",
    "region": "Phoenix",
-   "today": 0,
+   "today": 1,
    "rank": 8,
-   "gap_to_next": 19155
+   "gap_to_next": 8286
   },
   {
    "rep": "James DeCoursey",
@@ -96,7 +96,17 @@
    "region": "",
    "today": 0,
    "rank": 9,
-   "gap_to_next": 1013
+   "gap_to_next": 10013
+  },
+  {
+   "rep": "James Chernek",
+   "gross": 59984,
+   "deals": 3,
+   "type": "d2d",
+   "region": "",
+   "today": 1,
+   "rank": 10,
+   "gap_to_next": 8579
   },
   {
    "rep": "Jonathan Marino",
@@ -105,18 +115,8 @@
    "type": "retail",
    "region": "Phoenix",
    "today": 0,
-   "rank": 10,
-   "gap_to_next": 13639
-  },
-  {
-   "rep": "James Chernek",
-   "gross": 51294,
-   "deals": 2,
-   "type": "d2d",
-   "region": "",
-   "today": 0,
    "rank": 11,
-   "gap_to_next": 3630
+   "gap_to_next": 5060
   },
   {
    "rep": "Tanner Broadbent",
@@ -126,7 +126,7 @@
    "region": "Phoenix",
    "today": 0,
    "rank": 12,
-   "gap_to_next": 5528
+   "gap_to_next": 9158
   },
   {
    "rep": "Claude Springer",
@@ -180,7 +180,7 @@
   }
  ],
  "cas": {
-  "total": 66,
+  "total": 67,
   "goal": 50,
   "board": [
    {
@@ -261,17 +261,17 @@
     "rank": 11
    },
    {
+    "rep": "Michael Hurff",
+    "count": 3,
+    "type": "d2d",
+    "region": "",
+    "rank": 12
+   },
+   {
     "rep": "Connor Hamby",
     "count": 2,
     "type": "retail",
     "region": "Phoenix",
-    "rank": 12
-   },
-   {
-    "rep": "Michael Hurff",
-    "count": 2,
-    "type": "d2d",
-    "region": "",
     "rank": 13
    },
    {
