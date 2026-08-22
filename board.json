@@ -1,6 +1,6 @@
 {
  "month": "August 2026",
- "updated": "2026-08-21T17:10:46-07:00",
+ "updated": "2026-08-21T18:10:52-07:00",
  "gross_total": 1609122,
  "deals_total": 87,
  "counts": {
@@ -180,7 +180,7 @@
   }
  ],
  "cas": {
-  "total": 72,
+  "total": 73,
   "goal": 50,
   "board": [
    {
@@ -226,21 +226,21 @@
     "rank": 6
    },
    {
-    "rep": "Israel Silva",
-    "count": 4,
+    "rep": "Tanner Stephens",
+    "count": 5,
     "type": "d2d",
     "region": "",
     "rank": 7
    },
    {
-    "rep": "Michael Hurff",
+    "rep": "Israel Silva",
     "count": 4,
     "type": "d2d",
     "region": "",
     "rank": 8
    },
    {
-    "rep": "Tanner Stephens",
+    "rep": "Michael Hurff",
     "count": 4,
     "type": "d2d",
     "region": "",
